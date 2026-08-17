@@ -4,7 +4,12 @@ import { categories, certItems } from "../data/certItems";
 import type { CertType } from "../types";
 import { formatDuration } from "../utils/format";
 
-const CERT_TYPE_OPTIONS: CertType[] = ["성능인증", "혁신제품", "조달우수제품"];
+const CERT_TYPE_OPTIONS: (CertType | "전체")[] = [
+  "전체",
+  "성능인증",
+  "혁신제품",
+  "조달우수제품",
+];
 
 export default function ItemListPage() {
   const [category, setCategory] = useState<string>("전체");
@@ -34,37 +39,58 @@ export default function ItemListPage() {
         </p>
       </div>
 
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <select
-          value={category}
-          onChange={(e) => {
-            setCategory(e.target.value);
-            setSelectedId("");
-          }}
-          className="rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-700 outline-none focus:border-blue-500"
-        >
-          <option value="전체">전체 분류</option>
-          {categories.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-        <select
-          value={certType}
-          onChange={(e) => {
-            setCertType(e.target.value as CertType | "전체");
-            setSelectedId("");
-          }}
-          className="rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-700 outline-none focus:border-blue-500"
-        >
-          <option value="전체">전체 인증유형</option>
-          {CERT_TYPE_OPTIONS.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
+      <div className="mb-3">
+        <p className="mb-2 text-xs font-semibold text-slate-400">인증유형</p>
+        <div className="flex flex-wrap gap-1.5">
+          {CERT_TYPE_OPTIONS.map((t) => {
+            const active = certType === t;
+            return (
+              <button
+                key={t}
+                type="button"
+                onClick={() => {
+                  setCertType(t);
+                  setSelectedId("");
+                }}
+                className={
+                  "rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors " +
+                  (active
+                    ? "bg-brand-500 text-white"
+                    : "bg-white text-slate-600 ring-1 ring-inset ring-slate-200 hover:bg-slate-50")
+                }
+              >
+                {t}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mb-6 -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+        <p className="mb-2 text-xs font-semibold text-slate-400">분류</p>
+        <div className="flex gap-1.5">
+          {["전체", ...categories].map((c) => {
+            const active = category === c;
+            return (
+              <button
+                key={c}
+                type="button"
+                onClick={() => {
+                  setCategory(c);
+                  setSelectedId("");
+                }}
+                className={
+                  "shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors " +
+                  (active
+                    ? "bg-accent-500 text-brand-700"
+                    : "bg-white text-slate-600 ring-1 ring-inset ring-slate-200 hover:bg-slate-50")
+                }
+              >
+                {c}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <select
@@ -72,7 +98,7 @@ export default function ItemListPage() {
         onChange={(e) => setSelectedId(e.target.value)}
         className="input mb-6"
       >
-        <option value="">품목을 선택하세요</option>
+        <option value="">품목을 선택하세요 ({options.length}개)</option>
         {options.map((item) => (
           <option key={item.id} value={item.id}>
             {item.itemName}
@@ -81,7 +107,10 @@ export default function ItemListPage() {
       </select>
 
       {selectedItem ? (
-        <div className="rounded-xl border border-slate-200 bg-white p-6">
+        <div
+          key={selectedItem.id}
+          className="animate-fade-up rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
+        >
           <h2 className="truncate text-lg font-semibold text-slate-900">
             {selectedItem.itemName}
           </h2>
@@ -95,7 +124,7 @@ export default function ItemListPage() {
                 key={t}
                 className="flex items-start gap-2 text-sm text-slate-700"
               >
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
                 {t}
               </li>
             ))}
@@ -113,7 +142,7 @@ export default function ItemListPage() {
             </div>
             <Link
               to={`/items/${selectedItem.id}`}
-              className="rounded-lg bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-800"
+              className="rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-600 active:scale-[0.98]"
             >
               예상견적 보기
             </Link>

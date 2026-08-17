@@ -20,12 +20,12 @@ export default function Header() {
           </span>
         </Link>
         <nav className="flex shrink-0 items-center gap-3 text-sm font-medium text-slate-600 sm:gap-4">
-          <Link to="/" className="hidden whitespace-nowrap hover:text-blue-700 sm:inline">
+          <Link to="/" className="hidden whitespace-nowrap hover:text-brand-500 sm:inline">
             품목 조회
           </Link>
           <Link
             to="/inquiry"
-            className="whitespace-nowrap rounded-md bg-blue-700 px-3 py-2 text-white hover:bg-blue-800 sm:px-3.5"
+            className="whitespace-nowrap rounded-md bg-brand-500 px-3 py-2 text-white transition-colors hover:bg-brand-600 active:scale-[0.98] sm:px-3.5"
           >
             상담 문의
           </Link>

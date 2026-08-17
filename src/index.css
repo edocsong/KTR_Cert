@@ -1,8 +1,38 @@
 @import "tailwindcss";
+@import "pretendard/dist/web/variable/pretendardvariable.css";
 
 @theme {
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
     system-ui, "Segoe UI", Roboto, sans-serif;
+
+  /* Brand navy, sampled from the KTR Cert app icon (#013c83) */
+  --color-brand-50: #eaf1fb;
+  --color-brand-100: #cfe1f5;
+  --color-brand-200: #9ec3eb;
+  --color-brand-400: #14549e;
+  --color-brand-500: #013c83;
+  --color-brand-600: #013170;
+  --color-brand-700: #01275c;
+
+  /* Brand teal, sampled from the icon's checkmark shield (#21cdca) */
+  --color-accent-50: #eafdfc;
+  --color-accent-100: #cbf7f4;
+  --color-accent-400: #3bdad6;
+  --color-accent-500: #21cdca;
+  --color-accent-600: #148f8d;
+
+  --animate-fade-up: fade-up 0.35s ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 html {
@@ -13,8 +43,23 @@ body {
   margin: 0;
 }
 
+summary {
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
 @layer components {
   .input {
-    @apply w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100;
+    @apply w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
   }
 }

@@ -32,8 +32,8 @@ export default function InquiryPage() {
 
   if (submitted) {
     return (
-      <div className="mx-auto max-w-xl px-4 py-20 text-center sm:px-6">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-2xl">
+      <div className="animate-fade-up mx-auto max-w-xl px-4 py-20 text-center sm:px-6">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent-50 text-2xl text-accent-600">
           ✓
         </div>
         <h1 className="text-xl font-bold text-slate-900">
@@ -48,7 +48,7 @@ export default function InquiryPage() {
         </p>
         <Link
           to="/"
-          className="mt-6 inline-block text-sm font-medium text-blue-700 hover:underline"
+          className="mt-6 inline-block text-sm font-medium text-brand-500 hover:underline"
         >
           ← 품목 목록으로 돌아가기
         </Link>
@@ -57,11 +57,11 @@ export default function InquiryPage() {
   }
 
   return (
-    <div className="mx-auto max-w-xl px-4 py-10 sm:px-6">
+    <div className="animate-fade-up mx-auto max-w-xl px-4 py-10 sm:px-6">
       <button
         type="button"
         onClick={() => navigate(-1)}
-        className="mb-6 inline-block text-sm font-medium text-slate-500 hover:text-blue-700"
+        className="mb-6 inline-block text-sm font-medium text-slate-500 hover:text-brand-500"
       >
         ← 뒤로가기
       </button>
@@ -71,7 +71,10 @@ export default function InquiryPage() {
         드립니다.
       </p>
 
-      <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+      <form
+        onSubmit={handleSubmit}
+        className="mt-8 space-y-5 rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
+      >
         <Field label="문의 품목" required>
           <select
             required
@@ -136,7 +139,7 @@ export default function InquiryPage() {
 
         <button
           type="submit"
-          className="w-full rounded-lg bg-blue-700 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-800"
+          className="w-full rounded-lg bg-brand-500 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600 active:scale-[0.98]"
         >
           문의 보내기
         </button>
